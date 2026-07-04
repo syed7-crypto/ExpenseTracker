@@ -1,10 +1,18 @@
 import os
-
+filename="expenses.txt"
 def add_expense():
     category=input("Category: ")
     amount=input("Amount: ")
-    with open("expense.txt","a") as file:
+    with open("expenses.txt","a") as file:
         file.write(f"{category},{amount}\n")
+
+def view_expenses():
+    with open("expenses.txt","r") as file:
+        for line in file:
+            line=line.strip()
+            parts=line.split(",")
+            print(f"Category: {parts[0]}\tAmount: {parts[1]}")
+
 
 def main():
     os.system('clear' if os.name != 'nt' else 'cls')
