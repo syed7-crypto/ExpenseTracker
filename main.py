@@ -13,6 +13,15 @@ def view_expenses():
             parts=line.split(",")
             print(f"Category: {parts[0]}\tAmount: {parts[1]}")
 
+def show_total():
+    sum=0
+    with open("expenses.txt","r") as file:
+        for line in file:
+            line=line.strip()
+            parts=line.split(",")
+            price=float(parts[1])
+            sum+=price
+    print(f"Total expenses: {sum}")
 
 def main():
     os.system('clear' if os.name != 'nt' else 'cls')
