@@ -23,6 +23,21 @@ def show_total():
             total+=price
     print(f"Total expenses: {total}")
 
+def search_category():
+    search=input("Enter the category to search for: ")
+    found=False
+    with open("expenses.txt","r") as file:
+        for line in file:
+            line=line.strip()
+            parts=line.split(",")
+            if search.lower() == parts[0].lower():
+                print(f"{parts[0]} - {parts[1]}")
+                found=True
+        if not found:
+            print("No expenses found.")
+
+
+
 def main():
     os.system('clear' if os.name != 'nt' else 'cls')
 
