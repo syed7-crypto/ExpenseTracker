@@ -10,11 +10,11 @@ def clear_screen():
 def add_expense():
     category=input("Category: ")
     amount=float(input("Amount: "))
-    with open("filename","a") as file:
+    with open(filename,"a") as file:
         file.write(f"{category},{amount}\n")
 
 def view_expenses():
-    with open("filename","r") as file:
+    with open(filename,"r") as file:
         for line in file:
             line=line.strip()
             parts=line.split(",")
@@ -22,7 +22,7 @@ def view_expenses():
 
 def show_total():
     total=0
-    with open("filename","r") as file:
+    with open(filename,"r") as file:
         for line in file:
             parts=line.strip().split(",")
             price=float(parts[1])
@@ -32,7 +32,7 @@ def show_total():
 def search_category():
     search=input("Enter the category to search for: ")
     found=False
-    with open("filename","r") as file:
+    with open(filename,"r") as file:
         for line in file:
             parts=line.strip().split(",")
             if search.lower() == parts[0].lower():
@@ -44,7 +44,7 @@ def search_category():
 def delete_category():
     delete=input("Enter category: ")
     found=[]
-    with open("filename","r") as file:
+    with open(filename,"r") as file:
         lines = file.readlines()
 
         for index,line in enumerate(lines):
@@ -68,7 +68,7 @@ def delete_category():
 
         lines.pop(line_to_delete)
 
-        with open("filename", "w") as file:
+        with open(filename, "w") as file:
                 for line in lines:
                     file.write(line)
                 print("Expense deleted successfully.")
