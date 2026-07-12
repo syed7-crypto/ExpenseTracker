@@ -1,4 +1,7 @@
 import os
+from budget_manager import set_budget, get_budget
+from alerts import check_budget_alerts
+
 filename="expenses.txt"
 
 def clear_screen():
@@ -73,21 +76,34 @@ def delete_category():
                     file.write(line)
                 print("Expense deleted successfully.")
 
-
-    
+def set_monthly_budget():
+    try:
+        amount = float(input("Enter monthly budget limit: $"))
+        if amount <= 0:
+            print("Budget must be greater than zero.")
+            return
+        set_budget(amount)
+        print(f"Monthly budget set to ${amount:.2f}")
+    except ValueError:
+        print("Invalid amount. Please enter a number.")
 
 def main():
     while True:
         clear_screen()
 
-        print("""===== Expense Tracker =====
-
+        print("""===== Expense Tracker =====""")
+        check_budget_alerts()
+        budget = get_budget()
+        if budget is not None:
+            print(f"Monthly budget: ${budget:.2f}")
+        print("""
 1. Add Expense
 2. View Expenses
 3. Show Total
 4. Search by Category
 5. Delete expense by Category
-6. Exit
+6. Set Monthly Budget
+7. Exit
 """)
 
         choice = input("Enter choice: ")
@@ -103,6 +119,8 @@ def main():
         elif choice == "5":
             delete_category()
         elif choice == "6":
+            set_monthly_budget()
+        elif choice == "7":
             print("Goodbye!")
             break
         else:
